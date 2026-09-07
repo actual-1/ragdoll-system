@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dcha2xww3em8g"]
+
+[ext_resource type="PackedScene" uid="uid://osf8dqd3una1" path="res://scenes/visual_simulator.tscn" id="1_g7g4h"]
+[ext_resource type="PackedScene" uid="uid://cbydos0w2ru7b" path="res://scenes/spec_actor.tscn" id="2_j8ivh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j8ivh"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nd71p"]
+data = PackedVector3Array(-50, 0.5, 50, 50, 0.5, 50, -50, -0.5, 50, 50, 0.5, 50, 50, -0.5, 50, -50, -0.5, 50, 50, 0.5, -50, -50, 0.5, -50, 50, -0.5, -50, -50, 0.5, -50, -50, -0.5, -50, 50, -0.5, -50, 50, 0.5, 50, 50, 0.5, -50, 50, -0.5, 50, 50, 0.5, -50, 50, -0.5, -50, 50, -0.5, 50, -50, 0.5, -50, -50, 0.5, 50, -50, -0.5, -50, -50, 0.5, 50, -50, -0.5, 50, -50, -0.5, -50, 50, 0.5, 50, -50, 0.5, 50, 50, 0.5, -50, -50, 0.5, 50, -50, 0.5, -50, 50, 0.5, -50, -50, -0.5, 50, 50, -0.5, 50, -50, -0.5, -50, 50, -0.5, 50, 50, -0.5, -50, -50, -0.5, -50)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j8ivh"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_nd71p"]
+sky_material = SubResource("ProceduralSkyMaterial_j8ivh")
+
+[sub_resource type="Environment" id="Environment_7ddre"]
+background_mode = 2
+sky = SubResource("Sky_nd71p")
+glow_enabled = true
+
+[node name="TestScene" type="Node3D" unique_id=1924616790]
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=404612233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_j8ivh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=433174211]
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=1146353853]
+shape = SubResource("ConcavePolygonShape3D_nd71p")
+
+[node name="VisualSimulator" parent="." unique_id=2144263496 instance=ExtResource("1_g7g4h")]
+
+[node name="SpecActor" parent="VisualSimulator" unique_id=1418417725 instance=ExtResource("2_j8ivh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6174233, 2.225635)
+punch_force = 32.0
+
+[node name="Lights" type="Node3D" parent="." unique_id=2006319245]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights" unique_id=1510965393]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Lights" unique_id=693053371]
+environment = SubResource("Environment_7ddre")
