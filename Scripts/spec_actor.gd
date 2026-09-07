@@ -32,6 +32,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				var direction = interaction_ray.get_collision_normal() * -1
 				Node_parent.request_force_to_bone.emit(interaction_ray.get_collider().get_bone_id(),direction, punch_force*5)
 		else:
+			# This is a comment
 			pass
 
 func _physics_process(delta: float) -> void:
