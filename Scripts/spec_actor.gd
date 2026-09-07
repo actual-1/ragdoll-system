@@ -30,7 +30,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if Node_parent is PhysicsSimulator:
 				Node_parent.interaction_requested.emit()
 				var direction = interaction_ray.get_collision_normal() * -1
-				Node_parent.request_force_to_bone.emit(interaction_ray.get_collider().get_bone_id(),direction, punch_force*5)
+				Node_parent.request_force_to_bone.emit(interaction_ray.get_collider().get_bone_id(),direction, punch_force*50)
 		else:
 			pass
 
